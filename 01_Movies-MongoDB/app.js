@@ -7,6 +7,7 @@ const log = console.log;
 const mongoose = require('mongoose'); // used from node_modules
 const MONGO = process.env.MONGO || process.env.MONGOB; // connection variable from .env
 const users = require('./controllers/user.controller');
+const movies = require('./controllers/movie.controller');
 
 //! MIDDLEWARE
 mongoose.connect(`${MONGO}/moviedb`); // connection middleware. Est. route and defining our Collection we are targeting.
@@ -18,7 +19,8 @@ db.once("open", () => log(`Connected: ${MONGO}`)); // event listener to check co
 app.use(express.json());
 
 //! ROUTES
-app.use('/user', users)
+app.use('/user', users);
+app.use('/movies', movies);
 
 
 app.listen(PORT, () => log(`Movie Server running on Port: ${PORT}`));
