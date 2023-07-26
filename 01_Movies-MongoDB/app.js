@@ -8,6 +8,7 @@ const mongoose = require('mongoose'); // used from node_modules
 const MONGO = process.env.MONGO || process.env.MONGOB; // connection variable from .env
 const users = require('./controllers/user.controller');
 const movies = require('./controllers/movie.controller');
+// const validateSession = require('./middleware/validate-session');
 
 //! MIDDLEWARE
 mongoose.connect(`${MONGO}/moviedb`); // connection middleware. Est. route and defining our Collection we are targeting.
@@ -20,6 +21,7 @@ app.use(express.json());
 
 //! ROUTES
 app.use('/user', users);
+// app.use(validateSession); // all routes below require validation when used this way.
 app.use('/movies', movies);
 
 

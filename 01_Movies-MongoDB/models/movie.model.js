@@ -15,6 +15,9 @@ const MovieSchema = new mongoose.Schema({
         required: true
     },
     releaseYear: Number,
+    owner_id: {
+        type: String
+    }
 });
 
 module.exports = mongoose.model('Movie', MovieSchema);
