@@ -51,10 +51,10 @@ router.post('/', validateSession, async (req, res) => {
         Hint: Consider login within user.controller.js
         Docs: https://www.mongodb.com/docs/manual/reference/method/db.collection.findOne/
 */
-router.get('/:id', async (req,res) => {
+router.get('/:id', validateSession, async (req,res) => {
     try {
         const { id } = req.params;
-        const getMovie = await Movie.findOne({_id: id});
+        const getMovie = await Movie.findOne({_id: id, owner_id: req.user._id});
         
         // console.log(getMovie)
 
@@ -103,7 +103,7 @@ router.get('/', validateSession, async(req, res) => {
 })
 
 //TODO GET All by Genre - read
-router.get('/genre/:genre', async (req, res) => {
+router.get('/genre/:genre',validateSession, async (req, res) => {
     try {
         
         const { genre } = req.params;
@@ -118,7 +118,7 @@ router.get('/genre/:genre', async (req, res) => {
         }
 
         // const getMovies = await Movie.find({genre: genre})
-        const getMovies = await Movie.find({genre: buildWord})
+        const getMovies = await Movie.find({genre: buildWord, owner_id: req.user._id})
         // console.log(getMovies);
 
         getMovies.length > 0 ?
